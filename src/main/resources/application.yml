@@ -1,0 +1,12 @@
+spring:
+    application:
+        name: testeconta
+
+datasource:
+    url: jdbc:h2:~/testeconta
+    username: test
+    password: 1234
+
+server:
+    port: 8080
+    context-path: /testecontaapi
