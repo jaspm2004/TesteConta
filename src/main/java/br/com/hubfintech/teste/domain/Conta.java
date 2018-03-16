@@ -1,12 +1,14 @@
 package br.com.hubfintech.teste.domain;
 
 import br.com.hubfintech.teste.domain.types.StatusConta;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -26,16 +28,17 @@ public class Conta implements Serializable {
     
     @Column
     private String nome;    
-    private Long saldo;
+    private Long saldo = 0l;
     
     @Column(columnDefinition="DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dataCriacao; 
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy'T'HH:mm:ssZ")
+    private Date dataCriacao = new Date(); 
     
     @Enumerated(EnumType.STRING)
     private StatusConta statusConta;
     
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pessoaid")
     private Pessoa pessoa;
 

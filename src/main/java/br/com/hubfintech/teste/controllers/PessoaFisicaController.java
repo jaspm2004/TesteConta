@@ -1,7 +1,9 @@
 package br.com.hubfintech.teste.controllers;
 
+import br.com.hubfintech.teste.domain.Pessoa;
 import br.com.hubfintech.teste.domain.PessoaFisica;
 import br.com.hubfintech.teste.repository.PessoaFisicaRepository;
+import br.com.hubfintech.teste.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,14 +17,29 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Jose San Pedro
  */
 @RestController
-@RequestMapping(value = "/pj")
+@RequestMapping(value = "/pf")
 public class PessoaFisicaController {
     
     @Autowired
     PessoaFisicaRepository repository;
     
+    @Autowired
+    PessoaRepository repositoryP;
+    
     /**
-     * Insere um novo produto
+     * Retorna a pessoa física cadastrada com o id correspondente, ou uma lista de todas as pessoas físicas cadastradas caso id = null
+     * 
+     * @param id    id da pessoa
+     * @return      200 se a pessoa for encontrada, 
+     *              404 se não existe pessoa com esse id, 
+     */
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity listPessoaFisica() {
+        return new ResponseEntity(repository.findAll(), HttpStatus.OK);
+    }
+    
+    /**
+     * Insere uma nova pessoa
      * 
      * @param pessoa    a pessoa que será inserida
      * @return          200 se o pessoa é inserida com sucesso, 
@@ -30,7 +47,7 @@ public class PessoaFisicaController {
      *                  409 se já existe uma com o mesmo CPF
      */
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity createProduct(@RequestBody PessoaFisica pessoa) {
+    public ResponseEntity createPessoaFisica(@RequestBody PessoaFisica pessoa) {
         // o nome e o CPF não podem ser null
         String nome = pessoa.getNome();
         String cpf = pessoa.getCpf();
@@ -44,7 +61,9 @@ public class PessoaFisicaController {
         if (repository.existsByCpf(cpf)) {
             return new ResponseEntity(HttpStatus.CONFLICT);
         } else {
-            return new ResponseEntity(repository.save(pessoa), HttpStatus.OK);
+            Pessoa pessoaP = new Pessoa();
+            pessoaP.setPf(pessoa);
+            return new ResponseEntity(repositoryP.saveAndFlush(pessoaP), HttpStatus.OK);
         }
     }
 }

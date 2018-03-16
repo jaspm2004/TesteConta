@@ -1,8 +1,12 @@
 package br.com.hubfintech.teste.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -10,14 +14,30 @@ import javax.validation.constraints.NotNull;
  * @author Jose San Pedro
  */
 @Entity
-public class PessoaJuridica  extends Pessoa implements Serializable {
+public class PessoaJuridica implements Serializable {
+    
+    @OneToOne()
+    @JoinColumn(name = "id")
+    @JsonBackReference(value="Pessoa-PessoaJuridica")
+    private Pessoa pessoa;
+    
     @Column
     private String nomeFantasia;
     
+    @Id
     @NotNull
     @Column(unique = true)
     private String cnpj;
 
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
+    
     public String getNomeFantasia() {
         return nomeFantasia;
     }
