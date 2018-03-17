@@ -1,6 +1,7 @@
 package br.com.hubfintech.teste.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.validation.constraints.NotNull;
  * @author Jose San Pedro
  */
 @Entity
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PessoaJuridica implements Serializable {
     
     @OneToOne()

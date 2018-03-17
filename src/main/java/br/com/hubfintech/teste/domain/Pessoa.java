@@ -1,5 +1,6 @@
 package br.com.hubfintech.teste.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 import javax.persistence.CascadeType;
@@ -9,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -17,6 +17,7 @@ import org.hibernate.annotations.GenericGenerator;
  * @author Jose San Pedro
  */
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Pessoa implements Serializable {
     @Id
     @GeneratedValue(generator="increment")

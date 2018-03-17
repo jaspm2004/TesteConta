@@ -1,18 +1,23 @@
 package br.com.hubfintech.teste.domain;
 
 import br.com.hubfintech.teste.domain.types.StatusConta;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -38,9 +43,19 @@ public class Conta implements Serializable {
     @Enumerated(EnumType.STRING)
     private StatusConta statusConta;
     
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne //(fetch = FetchType.EAGER)
     @JoinColumn(name = "pessoaid")
     private Pessoa pessoa;
+    
+    @ManyToOne
+    @JoinColumn(name = "maeid")
+    //@JsonBackReference(value = "Conta-Conta")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Conta mae;
+    
+    /*@OneToOne(mappedBy = "mae")
+    @JsonBackReference(value = "Conta-Conta")
+    private Conta filial;*/
 
     public Long getId() {
         return id;
@@ -88,5 +103,13 @@ public class Conta implements Serializable {
 
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
+    }
+ 
+    public Conta getMae() {
+        return mae;
+    }
+
+    public void setMae(Conta mae) {
+        this.mae = mae;
     }
 }

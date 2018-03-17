@@ -49,11 +49,12 @@ public class PessoaFisicaController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity createPessoaFisica(@RequestBody PessoaFisica pessoa) {
         // o nome e o CPF não podem ser null
-        String nome = pessoa.getNome();
-        String cpf = pessoa.getCpf();
+        String nome = pessoa.getNome() == null ? "" : pessoa.getNome();
+        String cpf = pessoa.getCpf() == null ? "" : pessoa.getCpf();
         
         if (nome.isEmpty() 
-                || cpf.isEmpty()) {
+                || cpf.isEmpty()
+                    || pessoa.getDataNascimento() == null) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         

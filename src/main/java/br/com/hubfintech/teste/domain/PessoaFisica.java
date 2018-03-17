@@ -2,6 +2,7 @@ package br.com.hubfintech.teste.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -18,6 +19,7 @@ import javax.validation.constraints.NotNull;
  * @author Jose San Pedro
  */
 @Entity
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PessoaFisica implements Serializable {
     
     @OneToOne()

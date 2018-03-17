@@ -64,14 +64,16 @@ public class ContaController {
         // o nome não pode ser null
         String nome = conta.getNome();
         
-        if (nome.isEmpty()) {
+        if (nome.isEmpty()
+                || conta.getPessoa().getId() == null) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         
-        Pessoa pessoa = repositoryP.getOne(conta.getPessoa().getId());
-        Hibernate.initialize(pessoa.getPf());
-        Hibernate.initialize(pessoa.getPj());
-        conta.setPessoa(pessoa);
+        // seta pessoa
+        //Pessoa pessoa = repositoryP.getOne(conta.getPessoa().getId());
+        //conta.setPessoa(pessoa);
+        
+        //Conta contaF = 
         return new ResponseEntity(repository.saveAndFlush(conta), HttpStatus.OK);
     }
     

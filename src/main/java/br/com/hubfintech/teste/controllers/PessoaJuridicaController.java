@@ -62,7 +62,7 @@ public class PessoaJuridicaController {
             return new ResponseEntity(HttpStatus.CONFLICT);
         } else {
             Pessoa pessoaP = new Pessoa();
-            pessoaP.setPj(pessoa);
+            pessoaP.setPj(pessoa);            
             return new ResponseEntity(repositoryP.saveAndFlush(pessoaP), HttpStatus.OK);
         }
     }
