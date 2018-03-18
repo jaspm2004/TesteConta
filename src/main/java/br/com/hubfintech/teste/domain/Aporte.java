@@ -9,7 +9,8 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
- *
+ * Classe entidade para Aporte
+ * 
  * @author Jose San Pedro
  */
 @Entity

@@ -17,7 +17,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- *
+ * Classe entidade para Conta Matriz/Filial
+ * 
  * @author Jose San Pedro
  */
 @Entity

@@ -2,7 +2,6 @@ package br.com.hubfintech.teste.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -15,17 +14,17 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 /**
- *
+ * Classe entidade para Pessoa Física
+ * 
  * @author Jose San Pedro
  */
 @Entity
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PessoaFisica implements Serializable {
     
-    @OneToOne()
-    @JoinColumn(name = "id")
-    @JsonBackReference(value="Pessoa-PessoaFisica")
-    private Pessoa pessoa;
+    @Id
+    @NotNull
+    @Column(unique = true)
+    private String cpf;
     
     @Column
     private String nome;
@@ -34,20 +33,19 @@ public class PessoaFisica implements Serializable {
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private Date dataNascimento; 
+    
+    @OneToOne()
+    @JoinColumn(name = "id")
+    @JsonBackReference(value="Pessoa-PessoaFisica")
+    private Pessoa pessoa;
             
-    @Id
-    @NotNull
-    @Column(unique = true)
-    private String cpf;
-
-    public Pessoa getPessoa() {
-        return pessoa;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
-
     public String getNome() {
         return nome;
     }
@@ -64,11 +62,11 @@ public class PessoaFisica implements Serializable {
         this.dataNascimento = dataNascimento;
     }
 
-    public String getCpf() {
-        return cpf;
+    public Pessoa getPessoa() {
+        return pessoa;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
     }
 }

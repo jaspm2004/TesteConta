@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import br.com.hubfintech.teste.repository.AporteRepository;
+import br.com.hubfintech.teste.services.AporteService;
 
 /**
  *
@@ -26,10 +27,19 @@ public class AporteController {
         return new ResponseEntity(repository.findAll(), HttpStatus.OK);
     }
     
+    @Autowired
+    AporteService service;
+    
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity createAporte(@RequestBody Aporte aporte) {
-        // TODO: acionar serviço para verificar se é possível fazer o aporte
-        
-        return new ResponseEntity(repository.saveAndFlush(aporte), HttpStatus.OK);
+        long contaId = aporte.getConta().getId();
+
+        // verifica se é possível fazer o aporte
+        if (service.podeFazerAporte(contaId)) {
+            service.executaAporte(contaId, aporte.getValor());
+            return new ResponseEntity(repository.saveAndFlush(aporte), HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
 }

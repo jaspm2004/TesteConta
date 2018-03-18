@@ -2,8 +2,6 @@ package br.com.hubfintech.teste.controllers;
 
 import br.com.hubfintech.teste.domain.Conta;
 import br.com.hubfintech.teste.repository.ContaRepository;
-import br.com.hubfintech.teste.repository.PessoaRepository;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,12 +37,12 @@ public class ContaController {
         }
         
         // se o id não é null, filtra
-        List<Conta> listById = repository.findById(id);
-        if (listById.isEmpty()) {
+        Conta conta = repository.findOne(id);
+        if (conta == null) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
         
-        return new ResponseEntity(listById, HttpStatus.OK);
+        return new ResponseEntity(conta, HttpStatus.OK);
     }
     
     /**

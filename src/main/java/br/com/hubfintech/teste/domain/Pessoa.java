@@ -13,7 +13,8 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
- *
+ * Classe entidade para Pessoa, tabela de ligação com PF/PJ
+ * 
  * @author Jose San Pedro
  */
 @Entity
@@ -57,6 +58,4 @@ public class Pessoa implements Serializable {
     public void setPj(PessoaJuridica pj) {
         this.pj = pj;
     }
-    
-    
 }
