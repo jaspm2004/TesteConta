@@ -1,0 +1,2 @@
+--INSERT INTO pessoa (nome, cpf, datanascimento) VALUES ('Jose PF', '123.345', '18-11-1981');
+--INSERT INTO pessoa (nome, cpf, datanascimento) VALUES ('Pedro PF', '123.678', '18-01-1980');

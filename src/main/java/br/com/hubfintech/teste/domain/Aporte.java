@@ -4,6 +4,8 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -11,7 +13,7 @@ import org.hibernate.annotations.GenericGenerator;
  * @author Jose San Pedro
  */
 @Entity
-public class Transacao implements Serializable {
+public class Aporte implements Serializable {
     
     @Id
     @GeneratedValue(generator = "uuid")
@@ -19,6 +21,10 @@ public class Transacao implements Serializable {
     private String id;
     
     private Long valor;
+    
+    @ManyToOne
+    @JoinColumn(name = "contaid")
+    private Conta conta;
 
     public String getId() {
         return id;
@@ -35,4 +41,12 @@ public class Transacao implements Serializable {
     public void setValor(Long valor) {
         this.valor = valor;
     }    
+
+    public Conta getConta() {
+        return conta;
+    }
+
+    public void setConta(Conta conta) {
+        this.conta = conta;
+    }
 }
