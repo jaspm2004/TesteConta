@@ -49,8 +49,8 @@ public class PessoaJuridicaController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity createPessoaJuridica(@RequestBody PessoaJuridica pessoa) {
         // o nome e o CPF não podem ser null
-        String nome = pessoa.getNomeFantasia();
-        String cnpj = pessoa.getCnpj();
+        String nome = pessoa.getNomeFantasia() == null ? "" : pessoa.getNomeFantasia();
+        String cnpj = pessoa.getCnpj() == null ? "" : pessoa.getCnpj();
         
         if (nome.isEmpty() 
                 || cnpj.isEmpty()) {

@@ -1,11 +1,9 @@
 package br.com.hubfintech.teste.controllers;
 
 import br.com.hubfintech.teste.domain.Conta;
-import br.com.hubfintech.teste.domain.Pessoa;
 import br.com.hubfintech.teste.repository.ContaRepository;
 import br.com.hubfintech.teste.repository.PessoaRepository;
 import java.util.List;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +23,6 @@ public class ContaController {
     
     @Autowired 
     ContaRepository repository;
-    
-    @Autowired
-    PessoaRepository repositoryP;
     
     /**
      * Retorna a conta cadastrada com o id correspondente, ou uma lista de todas as contas caso id = null
@@ -69,11 +64,6 @@ public class ContaController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         
-        // seta pessoa
-        //Pessoa pessoa = repositoryP.getOne(conta.getPessoa().getId());
-        //conta.setPessoa(pessoa);
-        
-        //Conta contaF = 
         return new ResponseEntity(repository.saveAndFlush(conta), HttpStatus.OK);
     }
     
