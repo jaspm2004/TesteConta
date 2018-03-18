@@ -1,6 +1,5 @@
 package br.com.hubfintech.teste.services;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +10,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class AporteService {
 
-    private final Logger LOGGER = Logger.getLogger(AporteService.class);
-    
     @Autowired
     ContaService contaSrv;
     
@@ -23,16 +20,12 @@ public class AporteService {
      * @return 
      */
     public boolean podeFazerAporte(long contaId) {
-        LOGGER.debug("verificando se é possível fazer aporte na conta " + contaId);
         if (contaSrv.isContaAtiva(contaId)) {
-            LOGGER.debug("conta " + contaId + " está ATIVA...");
             if (contaSrv.isContaMatriz(contaId)) {
-                LOGGER.debug("conta " + contaId + " está MATRIZ...");
                 return true;
             }
         }
         
-        LOGGER.debug("a conta " + contaId + " não qualifica para receber aportes!");
         return false;
     }
     

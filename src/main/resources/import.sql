@@ -27,7 +27,7 @@ INSERT INTO pessoa (id, cnpj) VALUES (5, '0123.0001');
 INSERT INTO conta (id, nome, saldo, status_conta, data_criacao, pessoaid) VALUES (1, 'Conta Matriz 1', 0, 'ATIVA', CURRENT_TIMESTAMP(), 1);
 
 -- conta filial 1
-INSERT INTO conta (id, nome, saldo, status_conta, data_criacao, pessoaid, maeid) VALUES (2, 'Conta Filial 1', 0, 'ATIVA', CURRENT_TIMESTAMP(), 2, 1);
+INSERT INTO conta (id, nome, saldo, status_conta, data_criacao, pessoaid, maeid) VALUES (2, 'Conta Filial 1', 1000, 'ATIVA', CURRENT_TIMESTAMP(), 2, 1);
 
 -- conta filial 2
 INSERT INTO conta (id, nome, saldo, status_conta, data_criacao, pessoaid, maeid) VALUES (3, 'Conta Filial 2', 0, 'CANCELADA', CURRENT_TIMESTAMP(), 3, 2);

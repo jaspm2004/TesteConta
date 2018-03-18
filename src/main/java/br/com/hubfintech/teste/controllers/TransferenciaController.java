@@ -1,8 +1,8 @@
 package br.com.hubfintech.teste.controllers;
 
-import br.com.hubfintech.teste.domain.Aporte;
 import br.com.hubfintech.teste.domain.Transferencia;
 import br.com.hubfintech.teste.repository.TransferenciaRepository;
+import br.com.hubfintech.teste.services.TransferenciaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,10 +27,20 @@ public class TransferenciaController {
         return new ResponseEntity(repository.findAll(), HttpStatus.OK);
     }
     
+    @Autowired
+    TransferenciaService service;    
+    
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity createTransferencia(@RequestBody Transferencia transferencia) {
-        // TODO: acionar serviço para verificar se é possível fazer a transferência
-        
-        return new ResponseEntity(repository.saveAndFlush(transferencia), HttpStatus.OK);
+        long conta1id = transferencia.getContaOrigem().getId();
+        long conta2id = transferencia.getContaDestino().getId();
+
+        // verifica se é possível fazer o aporte
+        if (service.podeFazerTransferencia(conta1id, conta2id)) {
+            service.executaTransferencia(conta1id, conta2id, transferencia.getValor());
+            return new ResponseEntity(repository.saveAndFlush(transferencia), HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
 }

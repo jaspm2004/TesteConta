@@ -11,5 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PessoaJuridicaRepository extends JpaRepository<PessoaJuridica, String> {
  
+    PessoaJuridica findByCnpj(String cnpj);
+    
     boolean existsByCnpj(String cnpj);
 }

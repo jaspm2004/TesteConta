@@ -15,6 +15,12 @@ public class ContaService {
     @Autowired
     ContaRepository repository;
     
+    /**
+     * Verifica se é uma conta ATIVA
+     * 
+     * @param id    id da conta
+     * @return 
+     */
     public boolean isContaAtiva(long id) {
         Conta conta = repository.findOne(id);
         
@@ -28,6 +34,12 @@ public class ContaService {
         return false;
     }
     
+    /**
+     * Verifica se é uma conta MATRIZ
+     * 
+     * @param id    id da conta
+     * @return 
+     */
     public boolean isContaMatriz(long id) {
         Conta conta = repository.findOne(id);
         
@@ -40,12 +52,50 @@ public class ContaService {
         return false;
     }
     
+    /**
+     * Verifica se é uma conta FILIAL
+     * 
+     * @param id    id da conta
+     * @return 
+     */
+    public boolean isContaFilial(long id) {
+        return !isContaMatriz(id);
+    }
+    
+    /**
+     * Executa transação de aporte, creditando o valor no saldo da conta
+     * 
+     * @param id        id da conta
+     * @param valor     valor a ser creditado
+     */
     public void executaAporte(long id, long valor) {
         Conta conta = repository.findOne(id);
         
         if (conta != null) {
             conta.setSaldo(conta.getSaldo() + valor);
             repository.saveAndFlush(conta);
+        }
+    }
+    
+    /**
+     * Executa transação de transferência, debitando da conta origem e creditando na conta destino
+     * 
+     * @param conta1id  id da conta origem
+     * @param conta2id  id da conta destino
+     * @param valor     valor a transferido
+     */
+    public void executaTransferencia(long conta1id, long conta2id, long valor) {
+        Conta conta1 = repository.findOne(conta1id);
+        Conta conta2 = repository.findOne(conta2id);
+        
+        if (conta1 != null && conta2 != null) {
+            // débito
+            conta1.setSaldo(conta1.getSaldo() - valor);
+            repository.saveAndFlush(conta1);
+            
+            // crédito
+            conta2.setSaldo(conta2.getSaldo() + valor);
+            repository.saveAndFlush(conta2);
         }
     }
 }
