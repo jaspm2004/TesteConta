@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- *
+ * Classe de serviço para Transferências
+ * 
  * @author Jose San Pedro
  */
 @Service
@@ -26,11 +27,12 @@ public class TransferenciaService {
         // verifica se as contas estão ativas
         if (contaSrv.isContaAtiva(conta1id)
                 && contaSrv.isContaAtiva(conta2id)) {
-            // verifica se são contas filiais
-            if (contaSrv.isContaFilial(conta1id)
-                && contaSrv.isContaFilial(conta2id)) {
-                // TODO: verifica se a conta2 está na árvora de conta1
-                return true;
+            // verifica se a conta destino é filial
+            if (contaSrv.isContaFilial(conta2id)) {
+                // verifica se a conta destino pertence à árvore da conta origem
+                if (contaSrv.isNaArvore(conta1id, conta2id)) {
+                    return true;
+                }
             }
         }
         

@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *
+ * Controlador REST para Transferência
+ * 
  * @author Jose San Pedro
  */
 @RestController
@@ -22,20 +23,31 @@ public class TransferenciaController {
     @Autowired
     TransferenciaRepository repository;
     
+    @Autowired
+    TransferenciaService service;    
+    
+    /**
+     * Lista todas as transferências registradas
+     * 
+     * @return 
+     */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity listTransferencia() {
         return new ResponseEntity(repository.findAll(), HttpStatus.OK);
     }
     
-    @Autowired
-    TransferenciaService service;    
-    
+    /**
+     * Executa uma nova transferência
+     * 
+     * @param transferencia
+     * @return 
+     */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity createTransferencia(@RequestBody Transferencia transferencia) {
         long conta1id = transferencia.getContaOrigem().getId();
         long conta2id = transferencia.getContaDestino().getId();
 
-        // verifica se é possível fazer o aporte
+        // verifica se é possível fazer o transferência
         if (service.podeFazerTransferencia(conta1id, conta2id)) {
             service.executaTransferencia(conta1id, conta2id, transferencia.getValor());
             return new ResponseEntity(repository.saveAndFlush(transferencia), HttpStatus.OK);

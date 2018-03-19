@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- *
+ * Classe de serviço para Contas
+ * 
  * @author Jose San Pedro
  */
 @Service
@@ -60,6 +61,20 @@ public class ContaService {
      */
     public boolean isContaFilial(long id) {
         return !isContaMatriz(id);
+    }
+    
+    /**
+     * Verifica se a conta destino pertence à árvore da conta origem
+     * 
+     * @param conta1id  id da conta origem
+     * @param conta2id  id da conta destino
+     * @return 
+     */
+    public boolean isNaArvore(long conta1id, long conta2id) {
+        
+        // TODO: implementar verificação
+        
+        return false;
     }
     
     /**

@@ -1,8 +1,9 @@
 package br.com.hubfintech.teste.domain.types;
 
 /**
- *
- * @author Jose
+ * Status da conta
+ * 
+ * @author Jose San PEdro
  */
 public enum StatusConta {
     ATIVA,

@@ -6,7 +6,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- *
+ * Classe principal
+ * 
  * @author José San Pedro
  */
 @SpringBootApplication

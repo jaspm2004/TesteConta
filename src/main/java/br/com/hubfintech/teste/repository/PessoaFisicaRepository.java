@@ -5,7 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- *
+ * Interface para operações genéricas de CRUD com Pessoa Física
+ * 
  * @author Jose San Pedro
  */
 @Repository

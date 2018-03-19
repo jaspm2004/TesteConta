@@ -12,7 +12,8 @@ import br.com.hubfintech.teste.repository.AporteRepository;
 import br.com.hubfintech.teste.services.AporteService;
 
 /**
- *
+ * Controlador REST para Aporte
+ * 
  * @author Jose San Pedro
  */
 @RestController
@@ -22,14 +23,25 @@ public class AporteController {
     @Autowired
     AporteRepository repository;
     
+    @Autowired
+    AporteService service;
+
+    /**
+     * Lista todos os aportes registrados
+     * 
+     * @return 
+     */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity listAporte() {
         return new ResponseEntity(repository.findAll(), HttpStatus.OK);
     }
     
-    @Autowired
-    AporteService service;
-    
+    /**
+     * Executa um novo aporte
+     * 
+     * @param aporte
+     * @return 
+     */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity createAporte(@RequestBody Aporte aporte) {
         long contaId = aporte.getConta().getId();

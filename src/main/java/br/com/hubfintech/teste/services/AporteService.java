@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- *
+ * Classe de serviço para Aportes
+ * 
  * @author Jose San Pedro
  */
 @Service

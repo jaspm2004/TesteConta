@@ -1,6 +1,5 @@
 package br.com.hubfintech.teste.controllers;
 
-import br.com.hubfintech.teste.domain.Conta;
 import br.com.hubfintech.teste.domain.Pessoa;
 import br.com.hubfintech.teste.domain.PessoaFisica;
 import br.com.hubfintech.teste.repository.PessoaFisicaRepository;
@@ -8,7 +7,6 @@ import br.com.hubfintech.teste.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *
+ * Controlador REST para Pessoa Física
+ * 
  * @author Jose San Pedro
  */
 @RestController
@@ -34,7 +33,7 @@ public class PessoaFisicaController {
      * 
      * @param cpf   id da pessoa
      * @return      200 se a pessoa for encontrada, 
-     *              404 se não existe pessoa com esse id, 
+     *              404 se não existe pessoa com esse id
      */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity getPessoaFisica(@RequestParam(value = "cpf", required = false, defaultValue = "") String cpf) {
@@ -51,19 +50,19 @@ public class PessoaFisicaController {
     }
     
     /**
-     * Insere uma nova pessoa
+     * Cria uma nova pessoa
      * 
-     * @param pessoa    a pessoa que será inserida
-     * @return          200 se o pessoa é inserida com sucesso, 
-     *                  400 se falta informação para inserir,
+     * @param pessoa    a pessoa que será criada
+     * @return          200 se o pessoa fora criada com sucesso, 
+     *                  400 se falta informação para criar a pessoa,
      *                  409 se já existe uma com o mesmo CPF
      */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity createPessoaFisica(@RequestBody PessoaFisica pessoa) {
-        // o nome e o CPF não podem ser null
         String nome = pessoa.getNome() == null ? "" : pessoa.getNome();
         String cpf = pessoa.getCpf() == null ? "" : pessoa.getCpf();
-        
+
+        // nome, CPF e data de nascimento não podem ser null        
         if (nome.isEmpty() 
                 || cpf.isEmpty()
                     || pessoa.getDataNascimento() == null) {
