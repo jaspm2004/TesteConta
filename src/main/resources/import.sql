@@ -41,6 +41,9 @@ INSERT INTO conta (id, nome, saldo, status, data_criacao, pessoaid, maeid) VALUE
 -- conta matriz 2
 INSERT INTO conta (id, nome, saldo, status, data_criacao, pessoaid) VALUES (6, 'Conta Matriz 2', 200, 'CANCELADA', CURRENT_TIMESTAMP(), 1);
 
+-- conta matriz 5
+INSERT INTO conta (id, nome, saldo, status, data_criacao, pessoaid, maeid) VALUES (7, 'Conta Filial 5', 200, 'ATIVA', CURRENT_TIMESTAMP(), 2, 2);
+
 -- aporte na conta matriz 1
 INSERT INTO aporte (id, valor, contaid, status) VALUES ('123AP1', 100, 1, 'PROCESSADA');
 

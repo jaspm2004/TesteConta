@@ -92,10 +92,11 @@ public class TransferenciaController {
         
         long conta1id = contaOrigem.getId();
         long conta2id = contaDestino.getId();
+        long valor = transferencia.getValor();
 
         // verifica se é possível fazer o transferência
-        if (service.podeFazerTransferencia(conta1id, conta2id)) {
-            service.executaTransferencia(conta1id, conta2id, transferencia.getValor());
+        if (service.podeFazerTransferencia(conta1id, conta2id, valor)) {
+            service.executaTransferencia(conta1id, conta2id, valor);
             
             // atualiza status da transação
             transferencia.setStatus(StatusTransacao.PROCESSADA);

@@ -32,10 +32,22 @@ public class AporteService {
         return false;
     }
     
+    /**
+     * Processa o Aporte
+     * 
+     * @param contaId   id da conta que vai receber o aporte
+     * @param valor     valor a ser creditado na conta
+     */
     public void executaAporte(long contaId, long valor) {
         contaSrv.executaAporte(contaId, valor);
     }
     
+    /**
+     * Processa o estorno do Aporte
+     * Atualiza o status da transação para ESTORNADA
+     * 
+     * @param aporte 
+     */
     public void rollbackAporte(Aporte aporte) {
         contaSrv.rollbackAporte(aporte.getConta().getId(), aporte.getValor());
         aporte.setStatus(StatusTransacao.ESTORNADA);

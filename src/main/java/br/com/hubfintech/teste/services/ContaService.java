@@ -2,6 +2,7 @@ package br.com.hubfintech.teste.services;
 
 import br.com.hubfintech.teste.domain.Conta;
 import br.com.hubfintech.teste.repository.ContaRepository;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ContaService {
+    
+    private final Logger LOGGER = Logger.getLogger(ContaService.class);
     
     @Autowired
     ContaRepository repository;
@@ -72,9 +75,35 @@ public class ContaService {
      */
     public boolean isNaArvore(long conta1id, long conta2id) {
         
-        // TODO: implementar verificação
+        LOGGER.info("verificando se está na árvore, origem = " + conta1id + ", destino = " + conta2id);
+        Conta contaFilha = repository.findOne(conta2id);
         
-        return true;
+        if (contaFilha.getMae() == null)
+            return false;
+        
+        if (contaFilha.getMae().getId() == conta1id)
+            return true;
+        else {
+            return isNaArvore(conta1id, contaFilha.getMae().getId());
+        }
+    }
+    
+    /**
+     * Verifica se o saldo disponível na conta é maior ou igual ao valor
+     * 
+     * @param id    id da conta
+     * @param valor valor
+     * @return 
+     */
+    public boolean isSaldoDisponível(long id, long valor) {
+        Conta conta = repository.findOne(id);
+        
+        if (conta != null) {
+            if (conta.getSaldo() >= valor)
+                return true;
+        }
+        
+        return false;
     }
     
     /**
@@ -114,6 +143,12 @@ public class ContaService {
         }
     }
     
+    /**
+     * Executa estorno do Aporte, debitando o valor do aporte
+     * 
+     * @param id    id da conta para estorno
+     * @param valor valor a ser estornado
+     */
     public void rollbackAporte(long id, long valor) {
         Conta conta = repository.findOne(id);
         
@@ -123,6 +158,13 @@ public class ContaService {
         }
     }
     
+    /**
+     * Executa estorno da Transferência, debitando da conta destino e creditando na conta origem
+     * 
+     * @param conta1id  id da conta origem
+     * @param conta2id  id da conta destino
+     * @param valor     valor a ser estornado
+     */
     public void rollbackTransferencia(long conta1id, long conta2id, long valor) {
         Conta conta1 = repository.findOne(conta1id);
         Conta conta2 = repository.findOne(conta2id);
