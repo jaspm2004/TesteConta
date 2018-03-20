@@ -24,19 +24,19 @@ INSERT INTO pessoa_juridica (nome_fantasia, cnpj, razao_social) VALUES ('Empresa
 INSERT INTO pessoa (id, cnpj) VALUES (5, '0123.0001');
 
 -- conta matriz 1
-INSERT INTO conta (id, nome, saldo, status_conta, data_criacao, pessoaid) VALUES (1, 'Conta Matriz 1', 0, 'ATIVA', CURRENT_TIMESTAMP(), 1);
+INSERT INTO conta (id, nome, saldo, status, data_criacao, pessoaid) VALUES (1, 'Conta Matriz 1', 0, 'ATIVA', CURRENT_TIMESTAMP(), 1);
 
 -- conta filial 1
-INSERT INTO conta (id, nome, saldo, status_conta, data_criacao, pessoaid, maeid) VALUES (2, 'Conta Filial 1', 1000, 'ATIVA', CURRENT_TIMESTAMP(), 2, 1);
+INSERT INTO conta (id, nome, saldo, status, data_criacao, pessoaid, maeid) VALUES (2, 'Conta Filial 1', 1000, 'ATIVA', CURRENT_TIMESTAMP(), 2, 1);
 
 -- conta filial 2
-INSERT INTO conta (id, nome, saldo, status_conta, data_criacao, pessoaid, maeid) VALUES (3, 'Conta Filial 2', 0, 'CANCELADA', CURRENT_TIMESTAMP(), 3, 2);
+INSERT INTO conta (id, nome, saldo, status, data_criacao, pessoaid, maeid) VALUES (3, 'Conta Filial 2', 0, 'CANCELADA', CURRENT_TIMESTAMP(), 3, 2);
 
 -- conta filial 3
-INSERT INTO conta (id, nome, saldo, status_conta, data_criacao, pessoaid, maeid) VALUES (4, 'Conta Filial 3', 0, 'BLOQUEADA', CURRENT_TIMESTAMP(), 4, 1);
+INSERT INTO conta (id, nome, saldo, status, data_criacao, pessoaid, maeid) VALUES (4, 'Conta Filial 3', 0, 'BLOQUEADA', CURRENT_TIMESTAMP(), 4, 1);
 
 -- conta filial 4
-INSERT INTO conta (id, nome, saldo, status_conta, data_criacao, pessoaid, maeid) VALUES (5, 'Conta Filial 4', 0, 'ATIVA', CURRENT_TIMESTAMP(), 5, 3);
+INSERT INTO conta (id, nome, saldo, status, data_criacao, pessoaid, maeid) VALUES (5, 'Conta Filial 4', 0, 'ATIVA', CURRENT_TIMESTAMP(), 5, 3);
 
 -- conta matriz 2
-INSERT INTO conta (id, nome, saldo, status_conta, data_criacao, pessoaid) VALUES (6, 'Conta Matriz 2', 0, 'CANCELADA', CURRENT_TIMESTAMP(), 1);
+INSERT INTO conta (id, nome, saldo, status, data_criacao, pessoaid) VALUES (6, 'Conta Matriz 2', 0, 'CANCELADA', CURRENT_TIMESTAMP(), 1);

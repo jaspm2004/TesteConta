@@ -37,7 +37,7 @@ public class Conta implements Serializable {
     private Date dataCriacao = new Date(); 
     
     @Enumerated(EnumType.STRING)
-    private StatusConta statusConta;
+    private StatusConta status;
     
     @ManyToOne //(fetch = FetchType.EAGER)
     @JoinColumn(name = "pessoaid")
@@ -85,12 +85,12 @@ public class Conta implements Serializable {
         this.dataCriacao = dataCriacao;
     }
 
-    public StatusConta getStatusConta() {
-        return statusConta;
+    public StatusConta getStatus() {
+        return status;
     }
 
-    public void setStatusConta(StatusConta statusConta) {
-        this.statusConta = statusConta;
+    public void setStatus(StatusConta status) {
+        this.status = status;
     }
 
     public Pessoa getPessoa() {

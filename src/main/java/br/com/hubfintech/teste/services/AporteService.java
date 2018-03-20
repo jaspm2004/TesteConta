@@ -1,5 +1,7 @@
 package br.com.hubfintech.teste.services;
 
+import br.com.hubfintech.teste.domain.Aporte;
+import br.com.hubfintech.teste.domain.types.StatusTransacao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +34,10 @@ public class AporteService {
     
     public void executaAporte(long contaId, long valor) {
         contaSrv.executaAporte(contaId, valor);
+    }
+    
+    public void rollbackAporte(Aporte aporte) {
+        contaSrv.rollbackAporte(aporte.getConta().getId(), aporte.getValor());
+        aporte.setStatus(StatusTransacao.ESTORNADA);
     }
 }

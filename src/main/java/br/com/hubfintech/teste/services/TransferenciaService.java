@@ -1,5 +1,7 @@
 package br.com.hubfintech.teste.services;
 
+import br.com.hubfintech.teste.domain.Transferencia;
+import br.com.hubfintech.teste.domain.types.StatusTransacao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,5 +43,12 @@ public class TransferenciaService {
     
     public void executaTransferencia(long conta1id, long conta2id, long valor) {
         contaSrv.executaTransferencia(conta1id, conta2id, valor);
+    }
+    
+    public void rollbackTransferencia(Transferencia transferencia) {
+        contaSrv.rollbackTransferencia(transferencia.getContaOrigem().getId(), 
+                                        transferencia.getContaDestino().getId(), 
+                                        transferencia.getValor());
+        transferencia.setStatus(StatusTransacao.ESTORNADA);
     }
 }

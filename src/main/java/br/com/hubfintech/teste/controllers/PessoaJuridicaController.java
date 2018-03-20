@@ -4,6 +4,7 @@ import br.com.hubfintech.teste.domain.Pessoa;
 import br.com.hubfintech.teste.domain.PessoaJuridica;
 import br.com.hubfintech.teste.repository.PessoaJuridicaRepository;
 import br.com.hubfintech.teste.repository.PessoaRepository;
+import br.com.hubfintech.teste.services.PessoaJuridicaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,9 @@ public class PessoaJuridicaController {
     
     @Autowired
     PessoaRepository repositoryP;
+    
+    @Autowired
+    PessoaJuridicaService service;
     
     /**
      * Retorna a pessoa jurídica cadastrada com o id correspondente, ou uma lista de todas as pessoas jurídicas cadastradas caso id = null
@@ -67,6 +71,10 @@ public class PessoaJuridicaController {
                 || cnpj.isEmpty()) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
+        
+        // verifica se o cnpj é válido
+        if (!service.validaCNPJ(cnpj))
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         
         // verifica se já existe uma pessoa com o mesmo CNPJ
         if (repository.existsByCnpj(cnpj)) {

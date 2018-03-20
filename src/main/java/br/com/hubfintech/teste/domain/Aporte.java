@@ -1,7 +1,11 @@
 package br.com.hubfintech.teste.domain;
 
+import br.com.hubfintech.teste.domain.types.StatusConta;
+import br.com.hubfintech.teste.domain.types.StatusTransacao;
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -26,6 +30,9 @@ public class Aporte implements Serializable {
     @ManyToOne
     @JoinColumn(name = "contaid")
     private Conta conta;
+    
+    @Enumerated(EnumType.STRING)
+    private StatusTransacao status;
 
     public String getId() {
         return id;
@@ -49,5 +56,13 @@ public class Aporte implements Serializable {
 
     public void setConta(Conta conta) {
         this.conta = conta;
+    }
+
+    public StatusTransacao getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusTransacao status) {
+        this.status = status;
     }
 }

@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
  * @author Jose San Pedro
  */
 @Repository
-public interface TransferenciaRepository extends JpaRepository<Transferencia, String> {
+public interface TransferenciaRepository extends JpaRepository<Transferencia, Long> {
     
 }

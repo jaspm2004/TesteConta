@@ -26,7 +26,7 @@ public class ContaService {
         Conta conta = repository.findOne(id);
         
         if (conta != null) {
-            switch(conta.getStatusConta()) {
+            switch(conta.getStatus()) {
                 case ATIVA:
                     return true;
             }
@@ -74,7 +74,7 @@ public class ContaService {
         
         // TODO: implementar verificação
         
-        return false;
+        return true;
     }
     
     /**
@@ -110,6 +110,30 @@ public class ContaService {
             
             // crédito
             conta2.setSaldo(conta2.getSaldo() + valor);
+            repository.saveAndFlush(conta2);
+        }
+    }
+    
+    public void rollbackAporte(long id, long valor) {
+        Conta conta = repository.findOne(id);
+        
+        if (conta != null) {
+            conta.setSaldo(conta.getSaldo() - valor);
+            repository.saveAndFlush(conta);
+        }
+    }
+    
+    public void rollbackTransferencia(long conta1id, long conta2id, long valor) {
+        Conta conta1 = repository.findOne(conta1id);
+        Conta conta2 = repository.findOne(conta2id);
+        
+        if (conta1 != null && conta2 != null) {
+            // débito
+            conta1.setSaldo(conta1.getSaldo() + valor);
+            repository.saveAndFlush(conta1);
+            
+            // crédito
+            conta2.setSaldo(conta2.getSaldo() - valor);
             repository.saveAndFlush(conta2);
         }
     }

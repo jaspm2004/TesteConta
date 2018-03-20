@@ -1,9 +1,11 @@
 package br.com.hubfintech.teste.controllers;
 
+import br.com.caelum.stella.validation.CPFValidator;
 import br.com.hubfintech.teste.domain.Pessoa;
 import br.com.hubfintech.teste.domain.PessoaFisica;
 import br.com.hubfintech.teste.repository.PessoaFisicaRepository;
 import br.com.hubfintech.teste.repository.PessoaRepository;
+import br.com.hubfintech.teste.services.PessoaFissicaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,9 @@ public class PessoaFisicaController {
     @Autowired
     PessoaRepository repositoryP;
     
+    @Autowired
+    PessoaFissicaService service;
+            
     /**
      * Retorna a pessoa física cadastrada com o id correspondente, ou uma lista de todas as pessoas físicas cadastradas caso id = null
      * 
@@ -68,6 +73,10 @@ public class PessoaFisicaController {
                     || pessoa.getDataNascimento() == null) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
+        
+        // verifica se o CPF é válido
+        if (!service.validaCPF(cpf))
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         
         // verifica se já existe uma pessoa com o mesmo CPF
         if (repository.existsByCpf(cpf)) {
