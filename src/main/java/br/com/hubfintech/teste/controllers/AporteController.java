@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import br.com.hubfintech.teste.repository.AporteRepository;
 import br.com.hubfintech.teste.services.AporteService;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -29,13 +30,17 @@ public class AporteController {
     AporteService service;
 
     /**
-     * Lista todos os aportes registrados
+     * Lista todos os aportes registrados para uma conta específica
      * 
+     * @param id    id da conta
      * @return 
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity listAporte() {
-        return new ResponseEntity(repository.findAll(), HttpStatus.OK);
+    public ResponseEntity listAporte(@RequestParam(value = "id", required = false) Long id) {
+        if (id == null)
+            return new ResponseEntity(repository.findAll(), HttpStatus.OK);
+        
+        return new ResponseEntity(repository.findByContaId(id), HttpStatus.OK);
     }
     
     /**
@@ -70,6 +75,10 @@ public class AporteController {
         
         Aporte aporte = repository.getOne(id);
         if (aporte != null) {
+            // verifica se o aporte já foi estornado
+            if (aporte.getStatus() == StatusTransacao.ESTORNADA)
+                return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            
             service.rollbackAporte(aporte);
             aporte = repository.saveAndFlush(aporte);
             

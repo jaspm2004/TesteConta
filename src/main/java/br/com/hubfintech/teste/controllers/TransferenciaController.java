@@ -1,6 +1,6 @@
 package br.com.hubfintech.teste.controllers;
 
-import br.com.hubfintech.teste.domain.Aporte;
+import br.com.hubfintech.teste.domain.Conta;
 import br.com.hubfintech.teste.domain.Transferencia;
 import br.com.hubfintech.teste.domain.types.StatusTransacao;
 import br.com.hubfintech.teste.repository.TransferenciaRepository;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -30,13 +31,49 @@ public class TransferenciaController {
     TransferenciaService service;    
     
     /**
-     * Lista todas as transferências registradas
+     * Lista as transferências registradas
+     * 
+     * @param origem    filtra a listagem pela conta origem
+     * @param destino   filtra a listagem pela conta destino
+     * @param any       filtra a listagem por ambas as contas
      * 
      * @return 
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity listTransferencia() {
+    public ResponseEntity listTransferencia(@RequestParam(value = "origem", required = false) Long origem,
+                                                @RequestParam(value = "destino", required = false) Long destino,
+                                                    @RequestParam(value = "any", required = false) Long any) {
+        
+        if (any != null) {
+            return new ResponseEntity(repository.findByContaOrigemIdOrContaDestinoId(any, any), HttpStatus.OK);
+        }
+        
+        if (origem != null) {
+            return new ResponseEntity(repository.findByContaOrigemId(origem), HttpStatus.OK);
+        }
+        
+        if (destino != null) {
+            return new ResponseEntity(repository.findByContaDestinoId(destino), HttpStatus.OK);
+        }
+        
         return new ResponseEntity(repository.findAll(), HttpStatus.OK);
+    }
+    
+    /**
+     * Retorna a transferência cadastrada com o id correspondente
+     * 
+     * @param id    id da transferência
+     * @return      200 se a transferência for encontrada, 
+     *              404 se não existe transferência com esse id
+     */
+    @RequestMapping(value = {"/{id}", "/{id}/"}, method = RequestMethod.GET)
+    public ResponseEntity getTransferencia(@PathVariable("id") Long id) {
+        Transferencia transferencia = repository.findOne(id);
+        if (transferencia == null) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        
+        return new ResponseEntity(transferencia, HttpStatus.OK);
     }
     
     /**
@@ -47,8 +84,14 @@ public class TransferenciaController {
      */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity createTransferencia(@RequestBody Transferencia transferencia) {
-        long conta1id = transferencia.getContaOrigem().getId();
-        long conta2id = transferencia.getContaDestino().getId();
+        Conta contaOrigem = transferencia.getContaOrigem();
+        Conta contaDestino = transferencia.getContaDestino();
+        
+        if (transferencia.getValor() == null || contaOrigem == null || contaDestino == null)
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        
+        long conta1id = contaOrigem.getId();
+        long conta2id = contaDestino.getId();
 
         // verifica se é possível fazer o transferência
         if (service.podeFazerTransferencia(conta1id, conta2id)) {
@@ -72,6 +115,10 @@ public class TransferenciaController {
         
         Transferencia transferencia = repository.getOne(id);
         if (transferencia != null) {
+            // verifica se a transferência já foi estornada
+            if (transferencia.getStatus() == StatusTransacao.ESTORNADA)
+                return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            
             service.rollbackTransferencia(transferencia);
             transferencia = repository.saveAndFlush(transferencia);
             

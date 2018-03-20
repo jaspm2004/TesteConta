@@ -1,6 +1,5 @@
 package br.com.hubfintech.teste.controllers;
 
-import br.com.caelum.stella.validation.CPFValidator;
 import br.com.hubfintech.teste.domain.Pessoa;
 import br.com.hubfintech.teste.domain.PessoaFisica;
 import br.com.hubfintech.teste.repository.PessoaFisicaRepository;

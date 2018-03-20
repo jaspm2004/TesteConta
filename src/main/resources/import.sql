@@ -24,19 +24,34 @@ INSERT INTO pessoa_juridica (nome_fantasia, cnpj, razao_social) VALUES ('Empresa
 INSERT INTO pessoa (id, cnpj) VALUES (5, '0123.0001');
 
 -- conta matriz 1
-INSERT INTO conta (id, nome, saldo, status, data_criacao, pessoaid) VALUES (1, 'Conta Matriz 1', 0, 'ATIVA', CURRENT_TIMESTAMP(), 1);
+INSERT INTO conta (id, nome, saldo, status, data_criacao, pessoaid) VALUES (1, 'Conta Matriz 1', 1000, 'ATIVA', CURRENT_TIMESTAMP(), 1);
 
 -- conta filial 1
 INSERT INTO conta (id, nome, saldo, status, data_criacao, pessoaid, maeid) VALUES (2, 'Conta Filial 1', 1000, 'ATIVA', CURRENT_TIMESTAMP(), 2, 1);
 
 -- conta filial 2
-INSERT INTO conta (id, nome, saldo, status, data_criacao, pessoaid, maeid) VALUES (3, 'Conta Filial 2', 0, 'CANCELADA', CURRENT_TIMESTAMP(), 3, 2);
+INSERT INTO conta (id, nome, saldo, status, data_criacao, pessoaid, maeid) VALUES (3, 'Conta Filial 2', 300, 'CANCELADA', CURRENT_TIMESTAMP(), 3, 2);
 
 -- conta filial 3
-INSERT INTO conta (id, nome, saldo, status, data_criacao, pessoaid, maeid) VALUES (4, 'Conta Filial 3', 0, 'BLOQUEADA', CURRENT_TIMESTAMP(), 4, 1);
+INSERT INTO conta (id, nome, saldo, status, data_criacao, pessoaid, maeid) VALUES (4, 'Conta Filial 3', 300, 'ATIVA', CURRENT_TIMESTAMP(), 4, 1);
 
 -- conta filial 4
-INSERT INTO conta (id, nome, saldo, status, data_criacao, pessoaid, maeid) VALUES (5, 'Conta Filial 4', 0, 'ATIVA', CURRENT_TIMESTAMP(), 5, 3);
+INSERT INTO conta (id, nome, saldo, status, data_criacao, pessoaid, maeid) VALUES (5, 'Conta Filial 4', 300, 'ATIVA', CURRENT_TIMESTAMP(), 5, 3);
 
 -- conta matriz 2
-INSERT INTO conta (id, nome, saldo, status, data_criacao, pessoaid) VALUES (6, 'Conta Matriz 2', 0, 'CANCELADA', CURRENT_TIMESTAMP(), 1);
+INSERT INTO conta (id, nome, saldo, status, data_criacao, pessoaid) VALUES (6, 'Conta Matriz 2', 200, 'CANCELADA', CURRENT_TIMESTAMP(), 1);
+
+-- aporte na conta matriz 1
+INSERT INTO aporte (id, valor, contaid, status) VALUES ('123AP1', 100, 1, 'PROCESSADA');
+
+-- aporte na conta matriz 2
+INSERT INTO aporte (id, valor, contaid, status) VALUES ('456AP2', 100, 6, 'PROCESSADA');
+
+-- transferência 1
+INSERT INTO transferencia (id, valor, conta1id, conta2id, status) VALUES (1, 100, 1, 4, 'PROCESSADA');
+
+-- transferência 2
+INSERT INTO transferencia (id, valor, conta1id, conta2id, status) VALUES (2, 200, 1, 3, 'PROCESSADA');
+
+-- transferência 3
+INSERT INTO transferencia (id, valor, conta1id, conta2id, status) VALUES (3, 300, 4, 5, 'PROCESSADA');
