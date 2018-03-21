@@ -20,7 +20,7 @@ $ mvn dependency:copy-dependencies
 $ cd target
 $ java -jar .\TesteConta-1.0.0.jar
 ```
-A API REST está disponível em http://localhost:8080/testecontaapi/
+A API REST está disponível em http://localhost:8080/testecontaapi/ . Se for preciso mudar a porta, modifique o arquivo application.yml segundo corresponda.
 
 ### Para importar este projeto utilizando IDE
 
@@ -43,3 +43,18 @@ POST em http://localhost:8080/testecontaapi/pf
 GET em http://localhost:8080/testecontaapi/pf (lista todas as pessoas físicas cadastradas)
 GET em http://localhost:8080/testecontaapi/pf?cpf=<CPF da pessoa> (filtra pelo cpf, que no caso é também o id)
 ```
+* Para criar uma Pessoa Jurídica
+```
+POST em http://localhost:8080/testecontaapi/pj 
+
+- Passar os parâmetros abaixo, todos são obrigatórios, no Request Body: 
+* cnpj = <String>, formato: [XX.XXX.XXX/XXXX-XX]
+* nomeFantasia = <String>, 
+* razaoSocial = <String>
+```
+* Para listar Pessoa Jurídica
+```
+GET em http://localhost:8080/testecontaapi/pj (lista todas as pessoas jurídicas cadastradas)
+GET em http://localhost:8080/testecontaapi/pj?cnpj=<CNPJ da pessoa> (filtra pelo cnpj, que no caso é também o id)
+```
+
