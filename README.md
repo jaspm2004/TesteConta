@@ -120,6 +120,6 @@ GET em http://localhost:8080/testecontaapi/transferencia?destino=<id da conta> (
 
 Se o estorno for realizado com sucesso, o status da transação é atualizado automaticamente para "ESTORNADA". Não é possível estornar uma transferência cujo status de transação é "ESTORNADA".
 ```
-PATCH em http://localhost:8080/testecontaapi/transferencia?id=<id da transferência>
+PATCH em http://localhost:8080/testecontaapi/transferencia/<id da transferência>
 ```
 
