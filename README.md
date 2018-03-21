@@ -89,7 +89,7 @@ POST em http://localhost:8080/testecontaapi/aporte
 * Para listar Aporte
 ```
 GET em http://localhost:8080/testecontaapi/aporte (lista todos os aportes cadastrados)
-GET em http://localhost:8080/testecontaapi/aporte?id=<código alfanumérico> (filtra pelo id do aporte)
+GET em http://localhost:8080/testecontaapi/aporte/<código alfanumérico> (filtra pelo id do aporte)
 GET em http://localhost:8080/testecontaapi/aporte?conta=<id da conta> (lista os aportes atrelados à conta especificada)
 ```
 * Para estornar Aporte
