@@ -31,8 +31,7 @@ A API REST está disponível em http://localhost:8080/testecontaapi/
 ### Exemplos de uso
 * Para criar uma Pessoa Física
 ```
-fazer um POST em http://localhost:8080/testecontaapi/pf
-passar parâmetros, todos são obrigatórios, no Request Body: 
+fazer um POST em http://localhost:8080/testecontaapi/pf utilizando os parâmetros, todos são obrigatórios, no Request Body: 
 * cpf = <String>, formato: [XXX.XXX.XXX-XX]
 * nome = <String>, 
 * dataNascimento = <String> formato: [dd-mm-aaaa]
