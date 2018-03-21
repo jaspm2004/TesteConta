@@ -27,7 +27,7 @@ public class PessoaFisicaReporsitoryTest extends AbstractTest {
     private PessoaFisicaRepository repository;
     
     @Test
-    public void whenFindByName_thenReturnProduct() throws Exception {
+    public void whenFindByCpf_thenReturnPessoaFisica() throws Exception {
         // given
         PessoaFisica given = new PessoaFisica();
         given.setCpf("123.456");
