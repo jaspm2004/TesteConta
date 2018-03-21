@@ -1,6 +1,5 @@
 package br.com.hubfintech.teste.domain;
 
-import br.com.hubfintech.teste.domain.types.StatusConta;
 import br.com.hubfintech.teste.domain.types.StatusTransacao;
 import java.io.Serializable;
 import javax.persistence.Entity;

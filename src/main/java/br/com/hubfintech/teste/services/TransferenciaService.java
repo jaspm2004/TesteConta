@@ -24,29 +24,35 @@ public class TransferenciaService {
      * 
      * @param conta1id  conta origem
      * @param conta2id  conta destingo
+     * @param valor     valor da transferência
      * 
      * @return 
      */
     public boolean podeFazerTransferencia(long conta1id, long conta2id, long valor) {
         
-        // verifica se as contas estão ativas
-        if (contaSrv.isContaAtiva(conta1id)
-                && contaSrv.isContaAtiva(conta2id)) {
-            LOGGER.info("contas ativas - OK");
+        // verifica se as contas são diferentes
+        if (conta1id != conta2id) {
+            LOGGER.info("contas diferentes - OK");
             
-            // verifica se a conta destino é filial
-            if (contaSrv.isContaFilial(conta2id)) {
-                LOGGER.info("contas destino filial - OK");
-                
-                // verifica se a conta destino pertence à árvore da conta origem
-                if (contaSrv.isNaArvore(conta1id, conta2id)) {
-                    LOGGER.info("conta destino ná árvore da conta origem - OK");
-                    
-                    // verifica se o saldo na conta origem é >= que o valor da transferência
-                    if (contaSrv.isSaldoDisponível(conta1id, valor)) {
-                        LOGGER.info("saldo disponível na conta origem - OK");
-                        
-                        return true;
+            // verifica se as contas estão ativas
+            if (contaSrv.isContaAtiva(conta1id)
+                    && contaSrv.isContaAtiva(conta2id)) {
+                LOGGER.info("contas ativas - OK");
+
+                // verifica se a conta destino é filial
+                if (contaSrv.isContaFilial(conta2id)) {
+                    LOGGER.info("contas destino filial - OK");
+
+                    // verifica se a conta destino pertence à árvore da conta origem
+                    if (contaSrv.isNaArvore(conta1id, conta2id)) {
+                        LOGGER.info("conta destino ná árvore da conta origem - OK");
+
+                        // verifica se o saldo na conta origem é >= que o valor da transferência
+                        if (contaSrv.isSaldoDisponível(conta1id, valor)) {
+                            LOGGER.info("saldo disponível na conta origem - OK");
+
+                            return true;
+                        }
                     }
                 }
             }

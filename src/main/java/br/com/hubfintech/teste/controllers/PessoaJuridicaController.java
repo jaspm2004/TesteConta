@@ -66,9 +66,11 @@ public class PessoaJuridicaController {
         // o nome e o CPF não podem ser null
         String nome = pessoa.getNomeFantasia() == null ? "" : pessoa.getNomeFantasia();
         String cnpj = pessoa.getCnpj() == null ? "" : pessoa.getCnpj();
+        String razaoSocial = pessoa.getRazaoSocial() == null ? "" : pessoa.getRazaoSocial();
         
         if (nome.isEmpty() 
-                || cnpj.isEmpty()) {
+                || cnpj.isEmpty()
+                    || razaoSocial.isEmpty()) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         
