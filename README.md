@@ -73,3 +73,16 @@ POST em http://localhost:8080/testecontaapi/conta
 GET em http://localhost:8080/testecontaapi/conta (lista todas as contas cadastradas)
 GET em http://localhost:8080/testecontaapi/conta/<id> (filtra pelo id da conta)
 ```
+* Para criar um Aporte
+Os aportes podem ser recebidos apenas por uma Conta Matriz, com status = "ATIVA". Cada aporte realizado com sucesso recebe um identificador alfanumérico único e o status da transação é atualizado automaticamente para "PROCESSADA"
+```
+POST em http://localhost:8080/testecontaapi/aporte
+
+- Passar os parâmetros abaixo, todos são obrigatórios, no Request Body: 
+* "valor": Long
+* "conta": {"id": Long}    referência para conta Matriz que vai receber o aporte
+```
+* Para listar Aporte
+```
+GET em http://localhost:8080/testecontaapi/aporte (lista todas as aportes cadastrados)
+GET em http://localhost:8080/testecontaapi/aporte?id=<código alfanumérico> (filtra pelo id do aporte)
