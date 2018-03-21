@@ -32,15 +32,33 @@ public class AporteController {
     /**
      * Lista todos os aportes registrados para uma conta específica
      * 
-     * @param id    id da conta
+     * @param contaId   id da conta
      * @return 
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity listAporte(@RequestParam(value = "id", required = false) Long id) {
-        if (id == null)
+    public ResponseEntity listAporte(@RequestParam(value = "conta", required = false) Long contaId) {
+        if (contaId == null)
             return new ResponseEntity(repository.findAll(), HttpStatus.OK);
         
-        return new ResponseEntity(repository.findByContaId(id), HttpStatus.OK);
+        return new ResponseEntity(repository.findByContaId(contaId), HttpStatus.OK);
+    }
+    
+    /**
+     * Retorna o aporte cadastrado com o id correspondente
+     * 
+     * @param id   id do aporte
+     * @return 
+     */
+    @RequestMapping(value = {"/{id}", "/{id}/"}, method = RequestMethod.GET)
+    public ResponseEntity getAporte(@PathVariable("id") String id) {
+        if (id == null)
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        
+        Aporte aporte = repository.findOne(id);
+        if (aporte == null)
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        
+        return new ResponseEntity(aporte, HttpStatus.OK);
     }
     
     /**
@@ -51,8 +69,13 @@ public class AporteController {
      */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity createAporte(@RequestBody Aporte aporte) {
+        // valor, conta: não podem ser null
+        if (aporte.getValor() == null
+                || aporte.getConta() == null)
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        
         long contaId = aporte.getConta().getId();
-
+        
         // verifica se é possível fazer o aporte
         if (service.podeFazerAporte(contaId)) {
             service.executaAporte(contaId, aporte.getValor());

@@ -61,10 +61,11 @@ public class ContaController {
     public ResponseEntity createConta(@RequestBody Conta conta) {
         String nome = conta.getNome();
 
-        // o nome não pode ser null        
-        // a conta precisa estar atrelada a uma pessoa
+        // nome, status: não pode ser null        
+        // a conta precisa estar sempre atrelada a uma pessoa
         if (nome.isEmpty()
-                || conta.getPessoa().getId() == null) {
+                || conta.getStatus() == null
+                    || conta.getPessoa().getId() == null) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         
