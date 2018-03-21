@@ -109,7 +109,7 @@ POST em http://localhost:8080/testecontaapi/transferencia
 ```
 GET em http://localhost:8080/testecontaapi/transferencia (lista todas as transferência cadastradas)
 GET em http://localhost:8080/testecontaapi/transferencia/<id da transferência> (filtra pelo id da transferência)
-GET em http://localhost:8080/testecontaapi/transferencia?any=<id da conta> (lista as transferências que tiveram origem ou destinona conta especificada)
+GET em http://localhost:8080/testecontaapi/transferencia?any=<id da conta> (lista as transferências que tiveram origem ou destino na conta especificada)
 GET em http://localhost:8080/testecontaapi/transferencia?origem=<id da conta> (lista as transferências que tiveram origem na conta especificada)
 GET em http://localhost:8080/testecontaapi/transferencia?destino=<id da conta> (lista as transferências que tiveram destino na conta especificada)
 ```
