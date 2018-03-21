@@ -33,12 +33,12 @@ A API REST está disponível em http://localhost:8080/testecontaapi/
 ```
 fazer um POST em http://localhost:8080/testecontaapi/pf
 passar parâmetros, todos são obrigatórios, no Request Body: 
-cpf=<String>, formato: [XXX.XXX.XXX-XX]
-nome=<String>, 
-dataNascimento=<String> formato: [dd-mm-aaaa]
+* cpf=<String>, formato: [XXX.XXX.XXX-XX]
+* nome=<String>, 
+* dataNascimento=<String> formato: [dd-mm-aaaa]
 ```
 * Para listar Pessoa Física
 ```
 fazer um GET em http://localhost:8080/testecontaapi/pf (lista todas as pessoas físicas cadastradas)
-fazer um GET em http://localhost:8080/testecontaapi/pf?cpf=<CPF da pessoa> (filtra pelo cpf, que no caso é o id)
+fazer um GET em http://localhost:8080/testecontaapi/pf?cpf=<CPF da pessoa> (filtra pelo cpf, que no caso é também o id)
 ```
