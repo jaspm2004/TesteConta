@@ -15,12 +15,15 @@ API de para gestão/manutenção de contas de saldo. Oferece uma interface REST 
 ### Para executar este projeto localmente
 ```
 $ git clone https://github.com/jaspm2004/TesteConta
+$ cd TesteConta
 $ mvn clean install
 $ mvn dependency:copy-dependencies
 $ cd target
 $ java -jar .\TesteConta-1.0.0.jar
 ```
-A API está disponível em http://localhost:8080/testecontaapi/ . Se for preciso mudar a porta, modifique o arquivo application.yml segundo corresponda.
+Durante a execução são criadas várias entradas no banco de dados para facilitar os testes, para mais detalhes consultar o arquivo TesteConta\src\main\resources\import.sql.
+
+Após executar, a API estará disponível em http://localhost:8080/testecontaapi/ . Se for preciso mudar a porta, modifique o arquivo TesteConta\src\main\resources\application.yml segundo corresponda.
 
 ### Para importar este projeto utilizando IDE
 
