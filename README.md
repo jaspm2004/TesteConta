@@ -82,8 +82,15 @@ POST em http://localhost:8080/testecontaapi/aporte
 - Passar os parâmetros abaixo, todos são obrigatórios, no Request Body: 
 * "valor": Long
 * "conta": {"id": Long}    referência para conta Matriz que vai receber o aporte
-```a
+```
 * Para listar Aporte
 ```
 GET em http://localhost:8080/testecontaapi/aporte (lista todas as aportes cadastrados)
 GET em http://localhost:8080/testecontaapi/aporte?id=<código alfanumérico> (filtra pelo id do aporte)
+```
+* Para estornar Aporte
+
+Se o estorno for realizado com sucesso, o status da transação é atualizado automaticamente para "ESTORNADA". Não é possível estornar um Aporte cujo status de transação é "ESTORNADA".
+```
+PATCH em http://localhost:8080/testecontaapi/aporte?id=<código alfanumérico>
+```
