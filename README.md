@@ -80,12 +80,12 @@ Os aportes podem ser recebidos apenas por uma Conta Matriz, com status = "ATIVA"
 POST em http://localhost:8080/testecontaapi/aporte
 
 - Passar os parâmetros abaixo, todos são obrigatórios, no Request Body: 
-* "valor": Long
+* "valor": Long,
 * "conta": {"id": Long}    referência para conta Matriz que vai receber o aporte
 ```
 * Para listar Aporte
 ```
-GET em http://localhost:8080/testecontaapi/aporte (lista todas as aportes cadastrados)
+GET em http://localhost:8080/testecontaapi/aporte (lista todos os aportes cadastrados)
 GET em http://localhost:8080/testecontaapi/aporte?id=<código alfanumérico> (filtra pelo id do aporte)
 ```
 * Para estornar Aporte
@@ -94,3 +94,29 @@ Se o estorno for realizado com sucesso, o status da transação é atualizado au
 ```
 PATCH em http://localhost:8080/testecontaapi/aporte?id=<código alfanumérico>
 ```
+* Para criar uma Transferência
+
+As transferências podem ter origem em uma conta Matriz ou Filial, com status = "ATIVA", e destino apenas em uma conta Filial, com status = "ATIVA", que esteja na mesma árvore da conta origem. Cada transferência realizada com sucesso recebe um identificador único e o status da transação é atualizado automaticamente para "PROCESSADA"
+```
+POST em http://localhost:8080/testecontaapi/transferencia
+
+- Passar os parâmetros abaixo, todos são obrigatórios, no Request Body: 
+* "valor": Long,
+* "contaOrigem": {"id": Long},    referência para a conta origem
+* "contaDestino": {"id": Long}    referência para a conta destino
+```
+* Para listar Transferência
+```
+GET em http://localhost:8080/testecontaapi/transferencia (lista todas as transferência cadastradas)
+GET em http://localhost:8080/testecontaapi/transferencia/<id da transferência> (filtra pelo id da transferência)
+GET em http://localhost:8080/testecontaapi/transferencia?any=<id da conta> (lista as transferências que tiveram origem ou destinona conta especificada)
+GET em http://localhost:8080/testecontaapi/transferencia?origem=<id da conta> (lista as transferências que tiveram origem na conta especificada)
+GET em http://localhost:8080/testecontaapi/transferencia?destino=<id da conta> (lista as transferências que tiveram destino na conta especificada)
+```
+* Para estornar Transferência
+
+Se o estorno for realizado com sucesso, o status da transação é atualizado automaticamente para "ESTORNADA". Não é possível estornar uma transferência cujo status de transação é "ESTORNADA".
+```
+PATCH em http://localhost:8080/testecontaapi/transferencia?id=<id da transferência>
+```
+
