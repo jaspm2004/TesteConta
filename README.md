@@ -20,7 +20,7 @@ $ mvn dependency:copy-dependencies
 $ cd target
 $ java -jar .\TesteConta-1.0.0.jar
 ```
-A API REST está disponível em http://localhost:8080/testecontaapi/ . Se for preciso mudar a porta, modifique o arquivo application.yml segundo corresponda.
+A API está disponível em http://localhost:8080/testecontaapi/ . Se for preciso mudar a porta, modifique o arquivo application.yml segundo corresponda.
 
 ### Para importar este projeto utilizando IDE
 
