@@ -33,7 +33,7 @@ A API REST está disponível em http://localhost:8080/testecontaapi/
 ```
 fazer um POST em http://localhost:8080/testecontaapi/pf 
 
-Parâmetros, todos são obrigatórios, no Request Body: 
+- Passar os parâmetros abaixo, todos são obrigatórios, no Request Body: 
 * cpf = <String>, formato: [XXX.XXX.XXX-XX]
 * nome = <String>, 
 * dataNascimento = <String> formato: [dd-mm-aaaa]
